@@ -11,7 +11,7 @@ class DataBaseHandler:
     def create_table():
         with DataBaseHandler._connect() as conn:
             conn.execute(
-                '''CREATE TABLE IF NOT EXSISTS students
+                '''CREATE TABLE IF NOT EXISTS students
                         (id INTEGER PRIMARY KEY AUTOINCREMENT,
                         name TEXT NOT NULL,
                         email TEXT NOT NULL,
