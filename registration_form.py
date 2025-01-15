@@ -1,10 +1,12 @@
 import tkinter as tk
 from tkinter import ttk
 from database_handler import DataBaseHandler
+from studnet_listing import StudentListing
 
 class RegistrationForm(tk.Frame):
-    def __init__(self, parent):
+    def __init__(self, parent, refresh_callback):
         super().__init__(parent, padx=10, pady=10)
+        self.refresh_callback = refresh_callback
 
         tk.Label(self, text='Full Name').pack(fill='x')
         self.name_entry = tk.Entry(self)
@@ -34,6 +36,7 @@ class RegistrationForm(tk.Frame):
 
             if name and email and age and gender:
                 DataBaseHandler.insert_student(name, email, age, gender)
+                self.refresh_callback()
 
                 # Reset Form
                 self.resset_form()
