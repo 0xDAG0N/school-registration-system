@@ -1,14 +1,24 @@
 import tkinter as tk
 from tkinter import ttk
 from database_handler import DataBaseHandler
-from studnet_listing import StudentListing
+from student_listing import StudentListing
 import matplotlib.pyplot as plt
 import pandas as pd
 from tkinter import messagebox
 
 
 class RegistrationForm(tk.Frame):
+    """
+    A class representing the registration form for new students.
+
+    This form allows users to input student details including name, email, age, and gender,
+    and submit the data to be stored in the database. It also includes a feature to visualize
+    the gender distribution of registered students using a pie chart.
+    """
     def __init__(self, parent, refresh_callback):
+        """
+        Initializes the RegistrationForm.
+        """
         super().__init__(parent, padx=10, pady=10)
         self.refresh_callback = refresh_callback
 
@@ -36,25 +46,34 @@ class RegistrationForm(tk.Frame):
         self.visualize_button.pack(fill='x')
 
     def submit_form(self):
-            name = self.name_entry.get()
-            email = self.email_entry.get()
-            age = self.age_spinbox.get()
-            gender = self.gender_var.get()
+        """
+        Handles the submission of the registration form.
+        """
+        name = self.name_entry.get()
+        email = self.email_entry.get()
+        age = self.age_spinbox.get()
+        gender = self.gender_var.get()
 
-            if name and email and age and gender:
-                DataBaseHandler.insert_student(name, email, age, gender)
-                self.refresh_callback()
+        if name and email and age and gender:
+            DataBaseHandler.insert_student(name, email, age, gender)
+            self.refresh_callback()
 
-                # Reset Form
-                self.resset_form()
+             # Reset Form
+            self.resset_form()
 
     def resset_form(self):
+        """
+        Resets the form fields to their default values.
+        """
         self.name_entry.delete(0, 'end')
         self.email_entry.delete(0, 'end')
         self.age_spinbox.set(10)
         self.gender_var.set(None)
 
     def visualize_gender_distribution(self):
+        """
+        Visualizes the gender distribution of registered students using a pie chart.
+        """
         try:
             students = DataBaseHandler.get_all_students()
             if not students:
