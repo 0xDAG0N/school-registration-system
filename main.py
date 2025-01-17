@@ -1,3 +1,5 @@
+
+
 import tkinter as tk
 from registration_form import RegistrationForm
 from studnet_listing import StudentListing
@@ -6,7 +8,7 @@ class MainApplication(tk.Tk):
     def __init__(self):
         super().__init__()
         self.title("Students Managment System")
-        self.geometry("900x600")
+        self.geometry("1600x900")
         self.create_widgets()
 
     def create_widgets(self):

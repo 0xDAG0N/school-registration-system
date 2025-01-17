@@ -2,6 +2,10 @@ import tkinter as tk
 from tkinter import ttk
 from database_handler import DataBaseHandler
 from studnet_listing import StudentListing
+import matplotlib.pyplot as plt
+import pandas as pd
+from tkinter import messagebox
+
 
 class RegistrationForm(tk.Frame):
     def __init__(self, parent, refresh_callback):
@@ -28,6 +32,9 @@ class RegistrationForm(tk.Frame):
         self.submit_button = tk.Button(self, text='Submit', command=self.submit_form)
         self.submit_button.pack(fill='x')
 
+        self.visualize_button = tk.Button(self, text='Visualize Gender Distribution', command=self.visualize_gender_distribution)
+        self.visualize_button.pack(fill='x')
+
     def submit_form(self):
             name = self.name_entry.get()
             email = self.email_entry.get()
@@ -46,3 +53,33 @@ class RegistrationForm(tk.Frame):
         self.email_entry.delete(0, 'end')
         self.age_spinbox.set(10)
         self.gender_var.set(None)
+
+    def visualize_gender_distribution(self):
+        try:
+            students = DataBaseHandler.get_all_students()
+            if not students:
+                messagebox.showinfo("No Students", "No students registered yet.")
+                return
+
+            genders = [student[4] for student in students]  # Extract genders
+            male_count = genders.count('Male')
+            female_count = genders.count('Female')
+
+            # Create pie chart
+            fig, ax = plt.subplots()
+            labels = ['Male', 'Female']  # Explicit labels for the legend
+            sizes = [male_count, female_count]
+            colors = ['blue', 'pink']  # Assign colors to genders
+            ax.pie(sizes, labels=labels, colors=colors, autopct='%1.1f%%', startangle=140)  # Show percentages
+            ax.axis('equal')  # Equal aspect ratio ensures that pie is drawn as a circle.
+            plt.title('Gender Distribution')  # Add a title
+
+            # Display the chart
+            plt.show()
+
+        except Exception as e:
+            messagebox.showerror("Error", f"An error occurred: {e}")
+
+
+              
+    

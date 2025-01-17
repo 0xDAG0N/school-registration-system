@@ -24,7 +24,7 @@ class StudentListing(tk.Frame):
     
     def load_students(self):
         self.tree.delete(*self.tree.get_children())
-        for students in DataBaseHandler.get_all_students():
-            self.tree.insert('', tk.END, values=students)
+        for student in DataBaseHandler.get_all_students():
+            self.tree.insert('', tk.END, values=student)
 
     
