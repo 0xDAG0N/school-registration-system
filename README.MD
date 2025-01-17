@@ -4,7 +4,9 @@ This project is a desktop application built with Tkinter for managing student re
 
 ## Screenshot
 
-![Application Screenshot](screenshot.png)  ## How to Run the Application
+![Application Screenshot](screenshot.png)  
+
+## How to Run the Application
 
 1.  **Clone the repository:**
 
