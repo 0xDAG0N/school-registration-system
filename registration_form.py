@@ -51,15 +51,21 @@ class RegistrationForm(tk.Frame):
         """
         name = self.name_entry.get()
         email = self.email_entry.get()
-        age = self.age_spinbox.get()
-        gender = self.gender_var.get()
+        try :
+            age = self.age_spinbox.get()
+            age = int(age)
+            gender = self.gender_var.get()
 
-        if name and email and age and gender:
-            DataBaseHandler.insert_student(name, email, age, gender)
-            self.refresh_callback()
+            if name and email and age and gender:
+                DataBaseHandler.insert_student(name, email, age, gender)
+                self.refresh_callback()
 
-             # Reset Form
-            self.resset_form()
+                # Reset Form
+                self.resset_form()
+        except :
+            messagebox.showinfo("Error", "please enter a number in age.")
+
+        
 
     def resset_form(self):
         """
